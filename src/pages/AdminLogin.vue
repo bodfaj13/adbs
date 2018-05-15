@@ -102,7 +102,7 @@ export default {
 
 <style scoped>
   .alert {
-    width: 400px;
+    width: 428px;
     margin: 0px auto;
     margin-top: 10px;
   }
