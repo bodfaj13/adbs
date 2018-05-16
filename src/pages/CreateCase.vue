@@ -95,17 +95,17 @@
                 <!-- <div class="form-check"> -->
                   <div class="" v-if="ambulancesLength">
                     <template v-for="(car, key) in ambulances">
-                      <p>
-                        <input type="checkbox" class="form-check-input" :key="key" :value="car._id">
-                        <button class="btn btn-primary" style="width: 100%;" data-toggle="modal" data-target="#exampleModal" :key="key">Ambulance ID: {{car._id}}</button>
-                      </p>
+                      <label class="form-check-label" style="margin: 6px;" :key="key">
+                        <input type="checkbox" class="form-check-input" :value="car._id" v-model="ambChosen">
+                        <button class="btn btn-primary ambBtn" data-toggle="modal" data-target="#clickOnAmb" @click="clickOnAmb(key)">Ambulance ID: {{car._id}}</button>
+                      </label>
                     </template>
                   </div>
-                  <div class="container" v-else>
-                    None Available  <button class="btn btn-primary" @click="goToAddAmb"> <i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
+                  <div class="" style="margin: 5px;" v-else>
+                    <span class="small">None Available</span>  <button class="btn btn-primary small" @click="goToAddAmb" style="width: 100%;"><i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
                   </div>
-                  <div class="container" v-if="addMore">
-                    Not Enough Available  Ambulance(s) <button class="btn btn-primary" @click="goToAddAmb"> <i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
+                  <div class="" style="margin: 5px;" v-if="addMore">
+                    <span class="small">Not Enough Available  Ambulance(s)</span> <button class="btn btn-primary small" style="width: 100%;" @click="goToAddAmb"> <i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
                   </div>
                 <!-- </div> -->
               </div>
@@ -121,17 +121,44 @@
       <Footer></Footer>
 
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="clickOnAmb" tabindex="-1" role="dialog" aria-labelledby="clickOnAmbLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="clickOnAmbLabel">Modal title</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              ...
+              <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Driver Name</th>
+                      <td>{{clickOnAmbShow.assignedDriverName}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Driver ID</th>
+                      <td>{{clickOnAmbShow.assignedDriver}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Plate Number</th>
+                      <td>{{clickOnAmbShow.plateNumber}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Vechile Name</th>
+                      <td>{{clickOnAmbShow.vechileName}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Vechile Model</th>
+                      <td>{{clickOnAmbShow.vechileModel}}</td>
+                    </tr>
+                    <!-- <tr>
+                      <th scope="row">Current Location</th>
+                      <td>{{clickOnAmbShow.currentLocation.address}}</td>
+                    </tr> -->
+                  </tbody>
+                </table>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -158,7 +185,8 @@ export default {
     currentCase: {},
     AmbNeeded: 0,
     ambChosen: [],
-    addMore: true
+    addMore: true,
+    clickOnAmbShow: {}
   }),
   methods: {
     toggleShow (e) {
@@ -175,27 +203,42 @@ export default {
       this.AmbNeeded = Math.ceil(this.currentCase.noOfInjured / 3)
     },
     toggleAddMore () {
-      if (this.ambulancesLength < 1 && this.AmbNeeded > this.ambulancesLength + 1) {
-        this.addMore = false
-      } else if () {
-        
+      if (this.AmbNeeded > this.ambulancesLength) {
+        this.addMore = true
       }
     },
     goToAddAmb (e) {
       e.preventDefault()
       this.$router.push({name: 'CreateAmbulance'})
+    },
+    clickOnAmb (no) {
+      console.log(no)
+      this.clickOnAmbShow = this.ambulances[no]
+      console.log(this.clickOnAmbShow)
+    },
+    autoPickAmb () {
+      for (var i = 1; i <= this.AmbNeeded; i++) {
+        this.ambChosen.push(this.$store.state.AvailAmb[i]._id)
+      }
+      // console.log(this.$store.state.AvailAmb[0]._id)
     }
   },
   components: {
     DashboardNav,
     Footer
   },
+  watch: {
+    ambChosen (val) {
+      this.ambChosen = val
+      console.log(val.length)
+    }
+  },
   mounted () {
     this.currentCase = this.$store.state.currentCase
     this.calcAmbNeeded()
     this.toggleAddMore()
     this.getAvailableAmbulanceDetails()
-    console.log(this.ambulancesLength)
+    this.autoPickAmb()
   }
 }
 </script>
@@ -208,8 +251,12 @@ export default {
   .container-fluid {
     margin-bottom: 100px;
   }
-  .form-check {
-    margin-top: 5px;
+  .ambHolder {
+    padding: 3px;
+  }
+  .ambBtn {
+    width: 100%;
+    font-size: 15px;
   }
   @media only screen and (max-width: 600px) {
 
