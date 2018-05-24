@@ -27,6 +27,7 @@
     "vue-pull-to": "^0.1.6",
     "vue-router": "^3.0.1",
     "vue-swal": "0.0.6",
+    "vue-tables-2": "^1.4.50",
     "vue2-datatable-component": "^2.2.2",
     "vue2-google-maps": "^0.8.4",
     "vuetify": "^0.17.6",

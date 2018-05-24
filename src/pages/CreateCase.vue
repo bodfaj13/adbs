@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                   <label for="noNeeded">No of Selected Ambulance(s)</label>
-                  <input type="text" class="form-control" id="noSelected" value="0" disabled/>
+                  <input type="text" class="form-control" id="noSelected" :value="noAmbChosen" disabled/>
                 </div>
                 <hr>
                 <table class="table table-hover" v-if="showDetails">
@@ -95,17 +95,17 @@
                 <!-- <div class="form-check"> -->
                   <div class="" v-if="ambulancesLength">
                     <template v-for="(car, key) in ambulances">
-                      <label class="form-check-label" style="margin: 6px;" :key="key">
+                      <label class="form-check-label" style="margin: 6px" :key="key">
                         <input type="checkbox" class="form-check-input" :value="car._id" v-model="ambChosen">
                         <button class="btn btn-primary ambBtn" data-toggle="modal" data-target="#clickOnAmb" @click="clickOnAmb(key)">Ambulance ID: {{car._id}}</button>
                       </label>
                     </template>
                   </div>
-                  <div class="" style="margin: 5px;" v-else>
-                    <span class="small">None Available</span>  <button class="btn btn-primary small" @click="goToAddAmb" style="width: 100%;"><i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
+                  <div class="" style="margin: 5px" v-else>
+                    <span class="small">None Available</span>  <button class="btn btn-primary small" @click="goToAddAmb" style="width: 100%"><i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
                   </div>
-                  <div class="" style="margin: 5px;" v-if="addMore">
-                    <span class="small">Not Enough Available  Ambulance(s)</span> <button class="btn btn-primary small" style="width: 100%;" @click="goToAddAmb"> <i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
+                  <div class="" style="margin: 5px" v-if="addMore">
+                    <span class="small">Not Enough Available  Ambulance(s)</span> <button class="btn btn-primary small" style="width: 100%" @click="goToAddAmb"> <i class="fa fa-fw fa-plus"></i> Add Ambulance(s)</button>
                   </div>
                 <!-- </div> -->
               </div>
@@ -173,8 +173,8 @@
 <script>
 import DashboardNav from '../components/DashboardNav'
 import Footer from '../components/Footer'
-import {DataMixin} from '../mixins/DataMixin'
-import {LoaderMixin} from '../mixins/LoaderMixin'
+import { DataMixin } from '../mixins/DataMixin'
+import { LoaderMixin } from '../mixins/LoaderMixin'
 
 export default {
   name: 'CreateCase',
@@ -185,8 +185,9 @@ export default {
     currentCase: {},
     AmbNeeded: 0,
     ambChosen: [],
-    addMore: true,
-    clickOnAmbShow: {}
+    addMore: false,
+    clickOnAmbShow: {},
+    noAmbChosen: 0
   }),
   methods: {
     toggleShow (e) {
@@ -203,13 +204,15 @@ export default {
       this.AmbNeeded = Math.ceil(this.currentCase.noOfInjured / 3)
     },
     toggleAddMore () {
-      if (this.AmbNeeded > this.ambulancesLength) {
+      if (this.ambulancesLength <= this.AmbNeeded) {
+        this.addMore = false
+      } else {
         this.addMore = true
       }
     },
     goToAddAmb (e) {
       e.preventDefault()
-      this.$router.push({name: 'CreateAmbulance'})
+      this.$router.push({ name: 'CreateAmbulance' })
     },
     clickOnAmb (no) {
       console.log(no)
@@ -217,10 +220,24 @@ export default {
       console.log(this.clickOnAmbShow)
     },
     autoPickAmb () {
-      for (var i = 1; i <= this.AmbNeeded; i++) {
-        this.ambChosen.push(this.$store.state.AvailAmb[i]._id)
+      if (this.ambulancesLength < this.AmbNeeded) {
+        // for (var i = this.AmbNeeded; i >= 0; i--) {
+        //   this.ambChosen.push(this.$store.state.AvailAmb[i]._id)
+        // }
+        console.log('less')
       }
-      // console.log(this.$store.state.AvailAmb[0]._id)
+      if (this.ambulancesLength > this.AmbNeeded) {
+        // for (var x = this.AmbNeeded; x >= 0; x--) {
+        //   this.ambChosen.push(this.$store.state.AvailAmb[x]._id)
+        // }
+        console.log('greater')
+      }
+      if (this.ambulancesLength === this.AmbNeeded) {
+        // for (var y = this.AmbNeeded; y >= 0; y--) {
+        //   this.ambChosen.push(this.$store.state.AvailAmb[i]._id)
+        // }
+        console.log('equal')
+      }
     }
   },
   components: {
@@ -230,42 +247,52 @@ export default {
   watch: {
     ambChosen (val) {
       this.ambChosen = val
-      console.log(val.length)
+      this.noAmbChosen = val.length
+      console.log(val)
+    },
+    AmbNeeded (val) {
+      this.AmbNeeded = val
+      // if (this.AmbNeeded < this.ambulancesLength) {
+      //   console.log('lesser')
+      // }
+      this.autoPickAmb()
     }
   },
   mounted () {
     this.currentCase = this.$store.state.currentCase
-    this.calcAmbNeeded()
     this.toggleAddMore()
     this.getAvailableAmbulanceDetails()
-    this.autoPickAmb()
+    this.calcAmbNeeded()
+  },
+  updated () {
+    console.log('updated')
+  },
+  beforeUpdate () {
+    console.log('beforeUpdated')
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .content-wrapper {
-    margin-top: 50px;
-  }
-  .container-fluid {
-    margin-bottom: 100px;
-  }
-  .ambHolder {
-    padding: 3px;
-  }
-  .ambBtn {
-    width: 100%;
-    font-size: 15px;
-  }
-  @media only screen and (max-width: 600px) {
+.content-wrapper {
+  margin-top: 50px;
+}
+.container-fluid {
+  margin-bottom: 100px;
+}
+.ambHolder {
+  padding: 3px;
+}
+.ambBtn {
+  width: 100%;
+  font-size: 15px;
+}
+@media only screen and (max-width: 600px) {
+}
 
-  }
-
-  @media only screen and (min-width: 600px) and (max-width: 992px) {
-
-  }
-  @media only screen and (min-width: 993px) {
-
-  }
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+}
+@media only screen and (min-width: 993px) {
+}
 </style>

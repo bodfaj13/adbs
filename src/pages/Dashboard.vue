@@ -22,7 +22,7 @@
                 </div>
                 <div class="mr-5"><b>{{totalCalls}} Total Calls</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" @click="goToViewCall">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="mr-5"><b>{{totalCases}}  Total Cases</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" @click="goToViewCase">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="mr-5"><b>{{availableAmb}} Available Ambulances</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" @click="goToViewAmbulance">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="mr-5"><b>{{activeEmg}} Active Emergencies</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" @click="goToViewEmergency">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -113,6 +113,22 @@ export default {
       this.getTotalCasesNo()
       this.getAvailableAmbulanceNo()
       this.getActiveEmergencyNo()
+    },
+    goToViewAmbulance (e) {
+      e.preventDefault()
+      this.$router.push({ name: 'ViewAmbulance' })
+    },
+    goToViewCase (e) {
+      e.preventDefault()
+      this.$router.push({ name: 'ViewCase' })
+    },
+    goToViewCall (e) {
+      e.preventDefault()
+      this.$router.push({ name: 'ViewCall' })
+    },
+    goToViewEmergency (e) {
+      e.preventDefault()
+      this.$router.push({ name: 'ViewEmergency' })
     }
   },
   filters: {
