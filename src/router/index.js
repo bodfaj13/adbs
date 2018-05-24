@@ -10,10 +10,10 @@ import ForgotPassword from '@/pages/ForgotPassword'
 import CreateCase from '@/pages/CreateCase'
 import CreateDriver from '@/components/CreateDriver'
 import CreateAmbulance from '@/components/CreateAmbulance'
-import ViewCall from '@/components/ViewCall'
-import ViewEmergency from '@/components/ViewEmergency'
-import ViewCase from '@/components/ViewCase'
-import ViewAmbulance from '@/components/ViewAmbulance'
+import ViewCall from '@/pages/ViewCall'
+import ViewEmergency from '@/pages/ViewEmergency'
+import ViewCase from '@/pages/ViewCase'
+import ViewAmbulance from '@/pages/ViewAmbulance'
 
 Vue.use(Router)
 

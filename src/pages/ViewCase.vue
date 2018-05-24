@@ -1,15 +1,28 @@
 <template>
   <div class="content">
-      {{msg}}
+    <DashboardNav></DashboardNav>
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        {{msg}}
+      </div>
+    </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
+import DashboardNav from '../components/DashboardNav'
+import Footer from '../components/Footer'
+
 export default {
-  name: 'ViewCall',
+  name: 'ViewCase',
   data: () => ({
-    msg: 'Welcome to ViewCall Component!'
-  })
+    msg: 'Welcome to ViewCase Component!'
+  }),
+  components: {
+    DashboardNav,
+    Footer
+  }
 }
 </script>
 

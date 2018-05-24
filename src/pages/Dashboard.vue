@@ -22,7 +22,7 @@
                 </div>
                 <div class="mr-5"><b>{{totalCalls}} Total Calls</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" @click="goToViewCall">
+              <a class="card-footer text-white clearfix small z-1 view" @click="goToViewCall">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="mr-5"><b>{{totalCases}}  Total Cases</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" @click="goToViewCase">
+              <a class="card-footer text-white clearfix small z-1 view" @click="goToViewCase">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="mr-5"><b>{{availableAmb}} Available Ambulances</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" @click="goToViewAmbulance">
+              <a class="card-footer text-white clearfix small z-1 view" @click="goToViewAmbulance">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="mr-5"><b>{{activeEmg}} Active Emergencies</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" @click="goToViewEmergency">
+              <a class="card-footer text-white clearfix small z-1 view" @click="goToViewEmergency">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -153,6 +153,9 @@ export default {
   }
   #cview {
     margin-bottom: 20px;
+  }
+  .view {
+    cursor: pointer;
   }
   @media only screen and (max-width: 600px) {
 
