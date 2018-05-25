@@ -23,9 +23,18 @@ export default {
     return Api().get('getavailableambulanceno')
   },
   getActiveEmergencyNo () {
-    return Api().get('getactiveambulanceno')
+    return Api().get('getactiveemergencyno')
   },
   getAvailableAmbulanceDetails () {
     return Api().get('getavailableambulancdetails')
+  },
+  getTotalCall () {
+    return Api().get('gettotalcall')
+  },
+  getTotalCase () {
+    return Api().get('gettotalcases')
+  },
+  getActiveEmergency () {
+    return Api().get('getactiveemergency')
   }
 }
