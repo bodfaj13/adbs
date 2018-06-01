@@ -18,14 +18,14 @@
         <hr>
 
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-7">
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-9">
+                  <div class="col-md-6">
                     <h6>Call ID: {{currentCase._id}}</h6>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-6 text-right">
                     <button class="btn btn-primary" @click="toggleShow" ref="showDetailsBtn">Show Call Details</button>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="card">
               <div class="card-header">
                 <h6>Avaliable Ambulances <span class="badge badge-success">{{ambulancesLength}}</span></h6>
@@ -95,10 +95,12 @@
                 <!-- <div class="form-check"> -->
                   <div class="" v-if="ambulancesLength">
                     <template v-for="(car, key) in ambulances">
-                      <label class="form-check-label" style="margin: 6px" :key="key">
-                        <input type="checkbox" class="form-check-input" :value="car._id" v-model="ambChosen">
+                      <div class="input-group" :key="key" style="margin-left: 6px;padding-bottom: 3px;">
+                        <span class="input-group-append">
+                          <input type="checkbox" class="form-check-input" :value="car._id" v-model="ambChosen">
+                        </span>
                         <button class="btn btn-primary ambBtn" data-toggle="modal" data-target="#clickOnAmb" @click="clickOnAmb(key)">Ambulance ID: {{car._id}}</button>
-                      </label>
+                      </div>
                     </template>
                   </div>
                   <div class="" style="margin: 5px" v-else>
@@ -132,33 +134,33 @@
             </div>
             <div class="modal-body">
               <table class="table table-hover">
-                  <tbody>
-                    <tr>
-                      <th scope="row">Driver Name</th>
-                      <td>{{clickOnAmbShow.assignedDriverName}}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Driver ID</th>
-                      <td>{{clickOnAmbShow.assignedDriver}}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Plate Number</th>
-                      <td>{{clickOnAmbShow.plateNumber}}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Vechile Name</th>
-                      <td>{{clickOnAmbShow.vechileName}}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Vechile Model</th>
-                      <td>{{clickOnAmbShow.vechileModel}}</td>
-                    </tr>
-                    <!-- <tr>
-                      <th scope="row">Current Location</th>
-                      <td>{{clickOnAmbShow.currentLocation.address}}</td>
-                    </tr> -->
-                  </tbody>
-                </table>
+                <tbody>
+                  <tr>
+                    <th scope="row">Driver Name</th>
+                    <td>{{clickOnAmbShow.assignedDriverName}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Driver ID</th>
+                    <td>{{clickOnAmbShow.assignedDriver}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Plate Number</th>
+                    <td>{{clickOnAmbShow.plateNumber}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Vechile Name</th>
+                    <td>{{clickOnAmbShow.vechileName}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Vechile Model</th>
+                    <td>{{clickOnAmbShow.vechileModel}}</td>
+                  </tr>
+                  <!-- <tr>
+                    <th scope="row">Current Location</th>
+                    <td>{{clickOnAmbShow.currentLocation.address}}</td>
+                  </tr> -->
+                </tbody>
+              </table>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

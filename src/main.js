@@ -5,14 +5,16 @@ import App from './App'
 import router from './router'
 import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
-import {ClientTable} from 'vue-tables-2'
+// import {ClientTable} from 'vue-tables-2'
+import Datatable from 'vue2-datatable-component'
 
 Vue.config.productionTip = false
 // global filter
 Vue.filter('toLowercase', function (value) {
   return value.toLowerCase()
 })
-Vue.use(ClientTable)
+// Vue.use(ClientTable)
+Vue.use(Datatable)
 
 sync(store, router)
 /* eslint-disable no-new */

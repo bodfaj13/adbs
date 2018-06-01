@@ -9,13 +9,22 @@ export const DataMixin = {
     drivers: [],
     driversLength: 0,
     ambulances: [],
-    ambulancesLength: 0
+    ambulancesLength: 0,
+    totaldrivers: ''
   }),
   methods: {
-    async getDriverNo () {
+    async getTotalCallsNo () {
       try {
         var response = await DataFunctions.getTotalCallsNo()
         this.totalCalls = response.data.data
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    },
+    async getDriverNo () {
+      try {
+        var response = await DataFunctions.getDriversNo()
+        this.totaldrivers = response.data.data
       } catch (error) {
         console.log(error.response.data)
       }

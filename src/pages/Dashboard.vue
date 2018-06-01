@@ -6,7 +6,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb animated slideInLeft">
           <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="#" style="text-decoration: none" @click="doNothing">Dashboard</a>
           </li>
           <li class="breadcrumb-item active">{{$store.state.adminDetails.fullName | toUppercase}}</li>
         </ol>
@@ -66,11 +66,11 @@
             <div class="card text-white bg-danger o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon animated pulse infinite">
-                  <i class="fa fa-fw fa-support"></i>
+                  <i class="fa fa-fw fa-briefcase"></i>
                 </div>
-                <div class="mr-5"><b>{{activeEmg}} Active Emergencies</b></div>
+                <div class="mr-5"><b>{{totaldrivers}} Total Drivers</b></div>
               </div>
-              <a class="card-footer text-white clearfix small z-1 view" @click="goToViewEmergency">
+              <a class="card-footer text-white clearfix small z-1 view" @click="goToViewDriver">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -112,7 +112,8 @@ export default {
       this.getDriverNo()
       this.getTotalCasesNo()
       this.getAvailableAmbulanceNo()
-      this.getActiveEmergencyNo()
+      // this.getActiveEmergencyNo()
+      this.getTotalCallsNo()
     },
     goToViewAmbulance (e) {
       e.preventDefault()
@@ -126,9 +127,12 @@ export default {
       e.preventDefault()
       this.$router.push({ name: 'ViewCall' })
     },
-    goToViewEmergency (e) {
+    goToViewDriver (e) {
       e.preventDefault()
-      this.$router.push({ name: 'ViewEmergency' })
+      this.$router.push({ name: 'ViewDriver' })
+    },
+    doNothing (e) {
+      e.preventDefault()
     }
   },
   filters: {

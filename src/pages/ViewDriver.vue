@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <h3>View Emergencies</h3>
+            <h3>View Driver</h3>
           </div>
         </div>  
         <hr>
@@ -24,9 +24,9 @@ import Footer from '../components/Footer'
 import DataFunctions from '../services/DataFunctions'
 
 export default {
-  name: 'ViewCall',
+  name: 'ViewDriver',
   data: () => ({
-    msg: 'Welcome to ViewCall Component!',
+    msg: 'Welcome to ViewDriver Component!',
     totalCalls: [],
     query: {}
   }),

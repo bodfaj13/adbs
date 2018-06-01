@@ -14,6 +14,7 @@ import ViewCall from '@/pages/ViewCall'
 import ViewEmergency from '@/pages/ViewEmergency'
 import ViewCase from '@/pages/ViewCase'
 import ViewAmbulance from '@/pages/ViewAmbulance'
+import ViewDriver from '@/pages/ViewDriver'
 
 Vue.use(Router)
 
@@ -83,6 +84,11 @@ export default new Router({
       path: '/view-ambulance',
       name: 'ViewAmbulance',
       component: ViewAmbulance
+    },
+    {
+      path: '/view-driver',
+      name: 'ViewDriver',
+      component: ViewDriver
     },
     {
       path: '/forgot-password',
