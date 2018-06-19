@@ -23,8 +23,9 @@ export const DataMixin = {
     },
     async getDriverNo () {
       try {
-        var response = await DataFunctions.getDriversNo()
+        var response = await DataFunctions.getDriverAvailbleForAssinging()
         this.totaldrivers = response.data.data
+        this.totaldrivers = this.totaldrivers.length
       } catch (error) {
         console.log(error.response.data)
       }

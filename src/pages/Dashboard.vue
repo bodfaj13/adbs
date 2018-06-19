@@ -68,10 +68,10 @@
                 <div class="card-body-icon animated pulse infinite">
                   <i class="fa fa-fw fa-briefcase"></i>
                 </div>
-                <div class="mr-5"><b>{{totaldrivers}} Available Drivers</b></div>
+                <div class="mr-5"><b>{{totaldrivers}} Available <br>Drivers</b></div>
               </div>
               <a class="card-footer text-white clearfix small z-1 view" @click="goToViewDriver">
-                <span class="float-left">View <br> Details</span>
+                <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
                 </span>

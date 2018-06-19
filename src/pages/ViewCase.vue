@@ -127,10 +127,16 @@ export default {
       try {
         var response = await DataFunctions.getTotalCase()
         this.totalCases = response.data.data
-        this.data = this.totalCases
+        console.log(this.totalCases)
         this.totalLength = this.totalCases.length
-        for (var i = 0; i < 10; i++) {
-          this.currentView.push(this.totalCases[i])
+        if (this.totalLength > 10) {
+          for (var i = 0; i < 10; i++) {
+            this.currentView.push(this.totalCases[i])
+          }
+        } else {
+          for (var x = 0; x < this.totalLength; x++) {
+            this.currentView.push(this.totalCases[x])
+          }
         }
       } catch (error) {
         console.log(error.response.data)

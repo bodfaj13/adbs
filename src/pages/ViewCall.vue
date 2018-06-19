@@ -20,7 +20,8 @@
                 <div class="form-group">
                   <label for="viewSelect">Select views from <span class="badge badge-primary">{{totalLength}}</span> entries</label>
                   <select class="form-control" id="viewSelect" v-model="viewSelect">
-                    <option value="10">10</option>
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
                     <option value="15">15</option>
                   </select>
                 </div>
@@ -118,10 +119,15 @@ export default {
       try {
         var response = await DataFunctions.getTotalCall()
         this.totalCalls = response.data.data
-        this.data = this.totalCalls
         this.totalLength = this.totalCalls.length
-        for (var i = 0; i < 10; i++) {
-          this.currentView.push(this.totalCalls[i])
+        if (this.totalLength > 10) {
+          for (var i = 0; i < 10; i++) {
+            this.currentView.push(this.totalCalls[i])
+          }
+        } else {
+          for (var x = 0; x < this.totalLength; x++) {
+            this.currentView.push(this.totalCalls[x])
+          }
         }
       } catch (error) {
         console.log(error.response.data)

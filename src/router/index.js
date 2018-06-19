@@ -5,6 +5,8 @@ import Dashboard from '@/pages/Dashboard'
 import RecordCall from '@/components/RecordCall'
 import Settings from '@/components/Settings'
 import ActiveCases from '@/components/ActiveCases'
+import ManageAmbulances from '@/components/ManageAmbulances'
+import ManageDrivers from '@/components/ManageDrivers'
 // import store from '@/store/store'
 import ForgotPassword from '@/pages/ForgotPassword'
 import CreateCase from '@/pages/CreateCase'
@@ -56,6 +58,16 @@ export default new Router({
           path: 'create-ambulance',
           name: 'CreateAmbulance',
           component: CreateAmbulance
+        },
+        {
+          path: 'manage-ambulances',
+          name: 'ManageAmbulances',
+          component: ManageAmbulances
+        },
+        {
+          path: 'manage-driver',
+          name: 'ManageDrivers',
+          component: ManageDrivers
         }
       ]
     // beforeenter

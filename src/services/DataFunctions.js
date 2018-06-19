@@ -35,6 +35,6 @@ export default {
     return Api().get('gettotalcases')
   },
   getActiveEmergency () {
-    return Api().get('getactiveemergency')
+    return Api().get('getactiveambulance')
   }
 }

@@ -41,6 +41,7 @@
                     <th>ID</th>
                     <th>Fullname</th>
                     <th>Email</th>
+                    <th>Contact</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                   </tr>
@@ -51,17 +52,19 @@
                     <th>ID</th>
                     <th>Fullname</th>
                     <th>Email</th>
+                    <th>Contact</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                   </tr>
                 </tfoot>
-                <tbody v-if="currentView">
+                <tbody v-if="totalDrivers">
                   <template v-for="(driver, index) in filteredDrivers">
                     <tr>
                       <th scope="row">{{index + 1}}</th>
                       <td>{{driver._id}}</td>
                       <td>{{driver.fullName}}</td>
                       <td>{{driver.email}}</td>
+                      <td>{{driver.contact}}</td>
                       <td>{{driver.createdAt}}</td>
                       <td>{{driver.updatedAt}}</td>
                     </tr>
@@ -114,14 +117,19 @@ export default {
     prevBtn: true
   }),
   methods: {
-    async getTotalCall () {
+    async getTotalDriver () {
       try {
         var response = await DataFunctions.getDriverAvailbleForAssinging()
         this.totalDrivers = response.data.data
-        this.data = this.totalDrivers
         this.totalLength = this.totalDrivers.length
-        for (var i = 0; i < 10; i++) {
-          this.currentView.push(this.totalDrivers[i])
+        if (this.totalLength > 10) {
+          for (var i = 0; i < 10; i++) {
+            this.currentView.push(this.totalDrivers[i])
+          }
+        } else {
+          for (var x = 0; x < this.totalLength; x++) {
+            this.currentView.push(this.totalDrivers[x])
+          }
         }
       } catch (error) {
         console.log(error.response.data)
@@ -166,11 +174,11 @@ export default {
     Footer
   },
   mounted () {
-    this.getTotalCall()
+    this.getTotalDriver()
     // this.calPag()
   },
   updated () {
-    this.calPag()
+    // this.calPag()
   },
   watch: {
     currentView (val) {
@@ -188,8 +196,8 @@ export default {
   },
   computed: {
     filteredDrivers: function () {
-      return this.currentView.filter((calls) => {
-        return calls.fullName.match(this.inputSearch)
+      return this.currentView.filter((drivers) => {
+        return drivers.fullName.match(this.inputSearch)
       })
     }
   }
