@@ -5,9 +5,9 @@ import Dashboard from '@/pages/Dashboard'
 import RecordCall from '@/components/RecordCall'
 import Settings from '@/components/Settings'
 import ActiveCases from '@/components/ActiveCases'
-import ManageAmbulances from '@/components/ManageAmbulances'
-import ManageDrivers from '@/components/ManageDrivers'
-import store from '@/store/store'
+import ManageAmbulances from '@/pages/ManageAmbulances'
+import ManageDrivers from '@/pages/ManageDrivers'
+// import store from '@/store/store'
 import ForgotPassword from '@/pages/ForgotPassword'
 import CreateCase from '@/pages/CreateCase'
 import CreateDriver from '@/components/CreateDriver'
@@ -69,15 +69,8 @@ export default new Router({
           name: 'ManageDrivers',
           component: ManageDrivers
         }
-      ],
-      beforeEnter: (to, from, next) => {
-        var isAuth = store.state.isAdminLoggedIn
-        if (isAuth === false) {
-          console.log('access denied!')
-          next('/')
-        }
-        next()
-      }
+      ]
+    // beforeenter
     },
     {
       path: '/emergency-case',

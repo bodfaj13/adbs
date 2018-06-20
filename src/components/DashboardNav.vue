@@ -45,10 +45,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseMR">
             <li>
-              <a href="">Manage Ambulance</a>
+              <a href="" @click="gotoManageAmbulances">Manage Ambulance</a>
             </li>
             <li>
-              <a href="">Manage Driver</a>
+              <a href="" @click="gotoManageDrivers">Manage Driver</a>
             </li>
              <!-- <li>
               <a href="">Manage Staffs</a>
@@ -107,6 +107,14 @@ export default {
     gotoCreateDriver (e) {
       e.preventDefault()
       this.$router.push({name: 'CreateDriver'})
+    },
+    gotoManageAmbulances (e) {
+      e.preventDefault()
+      this.$router.push({name: 'ManageAmbulances'})
+    },
+    gotoManageDrivers (e) {
+      e.preventDefault()
+      this.$router.push({name: 'ManageDrivers'})
     },
     goBack (e) {
       e.preventDefault()

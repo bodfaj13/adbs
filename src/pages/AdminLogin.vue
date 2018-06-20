@@ -77,6 +77,7 @@ export default {
           this.loginSuccess = response.data.success
           this.$store.dispatch('setToken', response.data.token)
           this.$store.dispatch('setAdmin', response.data.adminDetails)
+          localStorage.setItem('setAdmin', JSON.stringify(response.data.adminDetails))
           this.timeOut()
           setTimeout(() => {
             this.$router.push({name: 'RecordCall'})

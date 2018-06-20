@@ -8,7 +8,7 @@
           <li class="breadcrumb-item">
             <a href="#" style="text-decoration: none" @click="doNothing">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">{{$store.state.adminDetails.fullName | toUppercase}}</li>
+          <li class="breadcrumb-item active">{{username | toUppercase}}</li>
         </ol>
         <hr>
 
@@ -101,7 +101,8 @@ export default {
   name: 'Dashboard',
   mixins: [DataMixin],
   data: () => ({
-    msg: 'Welcome to Dashboard Page!'
+    msg: 'Welcome to Dashboard Page!',
+    username: ''
   }),
   methods: {
     gotoRecordCall (e) {
@@ -133,6 +134,10 @@ export default {
     },
     doNothing (e) {
       e.preventDefault()
+    },
+    getUser () {
+      var user = JSON.parse(localStorage.getItem('setAdmin'))
+      this.username = user.fullName
     }
   },
   filters: {
@@ -146,6 +151,7 @@ export default {
   },
   mounted () {
     this.reRun()
+    this.getUser()
   }
 }
 </script>
