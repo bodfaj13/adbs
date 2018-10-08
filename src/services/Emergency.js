@@ -6,5 +6,8 @@ export default {
   },
   createCase (credentials) {
     return Api().post('createcase', credentials)
+  },
+  releaseCase (credentials) {
+    return Api().post('releasecase', credentials)
   }
 }

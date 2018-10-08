@@ -58,16 +58,6 @@ export default new Router({
           path: 'create-ambulance',
           name: 'CreateAmbulance',
           component: CreateAmbulance
-        },
-        {
-          path: 'manage-ambulances',
-          name: 'ManageAmbulances',
-          component: ManageAmbulances
-        },
-        {
-          path: 'manage-driver',
-          name: 'ManageDrivers',
-          component: ManageDrivers
         }
       ],
       beforeEnter: (to, from, next) => {
@@ -108,6 +98,16 @@ export default new Router({
       path: '/view-driver',
       name: 'ViewDriver',
       component: ViewDriver
+    },
+    {
+      path: 'manage-ambulances',
+      name: 'ManageAmbulances',
+      component: ManageAmbulances
+    },
+    {
+      path: 'manage-driver',
+      name: 'ManageDrivers',
+      component: ManageDrivers
     },
     {
       path: '/forgot-password',

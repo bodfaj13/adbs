@@ -20,7 +20,7 @@
                 <div class="card-body-icon animated pulse infinite">
                   <i class="fa fa-fw fa-phone"></i>
                 </div>
-                <div class="mr-5"><b>{{totalCalls}} Total Calls</b></div>
+                <div class="mr-5"><b>{{totalCalls}} Total Call(s)</b></div>
               </div>
               <a class="card-footer text-white clearfix small z-1 view" @click="goToViewCall">
                 <span class="float-left">View Details</span>
@@ -36,7 +36,7 @@
                 <div class="card-body-icon animated pulse infinite">
                   <i class="fa fa-fw fa-list"></i>
                 </div>
-                <div class="mr-5"><b>{{totalCases}}  Total Cases</b></div>
+                <div class="mr-5"><b>{{totalCases}}  Total Case(s)</b></div>
               </div>
               <a class="card-footer text-white clearfix small z-1 view" @click="goToViewCase">
                 <span class="float-left">View Details</span>
@@ -52,7 +52,7 @@
                 <div class="card-body-icon animated pulse infinite">
                   <i class="fa fa-fw fa-ambulance"></i>
                 </div>
-                <div class="mr-5"><b>{{availableAmb}} Available Ambulances</b></div>
+                <div class="mr-5"><b>{{availableAmb}} Available Ambulance(s)</b></div>
               </div>
               <a class="card-footer text-white clearfix small z-1 view" @click="goToViewAmbulance">
                 <span class="float-left">View Details</span>
@@ -68,7 +68,7 @@
                 <div class="card-body-icon animated pulse infinite">
                   <i class="fa fa-fw fa-briefcase"></i>
                 </div>
-                <div class="mr-5"><b>{{totaldrivers}} Available <br>Drivers</b></div>
+                <div class="mr-5"><b>{{totaldrivers}} Available <br>Driver(s)</b></div>
               </div>
               <a class="card-footer text-white clearfix small z-1 view" @click="goToViewDriver">
                 <span class="float-left">View Details</span>

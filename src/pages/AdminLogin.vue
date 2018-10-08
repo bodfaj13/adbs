@@ -7,8 +7,9 @@
       <br>
       Dashboard is being prepared...
     </div>
+    
     <div class="card card-login mx-auto mt-5">
-      <div class="card-header"><h3>ADS Login</h3></div>
+      <div class="card-header"><h5 class="text-center">ADMINSTRATOR'S LOGIN</h5></div>
       <div class="card-body">
         <form>
           <div class="form-group">
@@ -28,7 +29,7 @@
         </form>
         <div class="text-center">
           <!-- <a class="d-block small mt-3" href="">Register an Account</a> -->
-          <a class="d-block small" href="" @click="goToForgotPassword">Forgot Password?</a>
+          <!-- <a class="d-block small" href="" @click="goToForgotPassword">Forgot Password?</a> -->
         </div>
       </div>
     </div>
@@ -106,6 +107,14 @@ export default {
     width: 428px;
     margin: 0px auto;
     margin-top: 10px;
+  }
+  #logoImg {
+    width: 300px;
+    height: 200px;
+    border-radius: 90%;
+    margin-left: 395px;
+    padding-top: 15px;
+    
   }
   @media only screen and (max-width: 600px) {
     .alert {

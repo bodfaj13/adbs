@@ -36,5 +36,11 @@ export default {
   },
   getActiveEmergency () {
     return Api().get('getactiveambulance')
+  },
+  getAllDrivers () {
+    return Api().get('getalldrivers')
+  },
+  getAllAmbulances () {
+    return Api().get('getallambulances')
   }
 }

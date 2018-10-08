@@ -13,7 +13,8 @@
         <!-- <code>query: {{ query }}</code> -->
         <div class="card mb-3">
           <div class="card-header">
-          <i class="fa fa-table"></i> View Ambulance</div>
+            <i class="fa fa-table"></i> View Ambulance
+          </div>
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">

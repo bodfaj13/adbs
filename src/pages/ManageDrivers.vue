@@ -1,26 +1,21 @@
 <template>
-  <div class="content">
-    <DashboardNav></DashboardNav>
-    <div class="content-wrapper">
-      {{msg}}
-    </div>
-    <Footer></Footer>
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+          <h3>Manage Driver(s)</h3>
+      </div>
+    </div>  
+    <hr>
+
   </div>
 </template>
 
 <script>
-import DashboardNav from '../components/DashboardNav'
-import Footer from '../components/Footer'
-
 export default {
   name: 'ManageDrivers',
   data: () => ({
     msg: 'Welcome to Manage Drivers Component!'
-  }),
-  components: {
-    DashboardNav,
-    Footer
-  }
+  })
 }
 </script>
 

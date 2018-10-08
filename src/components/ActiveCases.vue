@@ -34,7 +34,9 @@
                     <th>Caller Contact</th>
                     <th>Live At Scene</th>
                     <th>Caller Is Victim</th>
+                    <th>Emergency ID</th>
                     <th>Time</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -44,18 +46,26 @@
                     <th>Caller Contact</th>
                     <th>Live At Scene</th>
                     <th>Caller Is Victim</th>
+                    <th>Emergency ID</th>
                     <th>Time</th>
+                    <th>Action</th>
                   </tr>
                 </tfoot>
                 <tbody v-if="totalActiveCases">
-                  <template v-for="(activeCases, index) in filteredActiveCases">
-                    <tr>
+                  <template v-for="(activeCases, index, key) in filteredActiveCases">
+                    <tr :key="key">
                       <th scope="row">{{index + 1}}</th>
                       <td>{{activeCases.callerName}}</td>
                       <td>{{activeCases.callerContact}}</td>
                       <td>{{activeCases.liveAtScene}}</td>
                       <td>{{activeCases.callerIsVictim}}</td>
+                      <td>{{activeCases._id}}</td>
                       <td>{{activeCases.createdAt}}</td>
+                      <td>
+                        <button type="button" class="btn btn-primary btn-block text-white btn-md" @click="releaseCaseTrigger(index)" data-toggle="modal" data-target="#releaseModal">
+                          Case Delivered
+                        </button>
+                      </td>
                     </tr>
                   </template>
                 </tbody>
@@ -81,11 +91,30 @@
           </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
+
+      <div class="modal fade" id="releaseModal" tabindex="-1" role="dialog" aria-labelledby="releaseModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="releaseModalLabel">Case delivered successfully?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "<b>Logout</b>" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="" @click="releaseCase(releaseCaseNo)" data-dismiss="modal">Proceed</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import DataFunctions from '../services/DataFunctions'
+import Emergency from '../services/Emergency'
 
 export default {
   name: 'ActiveCases',
@@ -97,7 +126,9 @@ export default {
     noPages: '',
     viewSelect: 5,
     inputSearch: '',
-    prevBtn: true
+    prevBtn: true,
+    releaseSuccess: '',
+    releaseCaseNo: ''
   }),
   methods: {
     async getActiveCases () {
@@ -150,6 +181,28 @@ export default {
     },
     doNothing (e) {
       e.preventDefault()
+    },
+    async releaseCase (no) {
+      console.log(no)
+      var caseNp = no
+      var getCase = this.totalActiveCases[caseNp]
+      try {
+        const response = await Emergency.releaseCase({
+          emergencyId: getCase._id,
+          ambulanceId: getCase.ambulanceId
+        })
+        console.log(response)
+        this.releaseSuccess = response.data.success
+        this.getActiveCases()
+        this.$emit('reRunNumbers', true)
+      } catch (error) {
+        this.error = error.response.data.error
+        console.log(this.error)
+      }
+    },
+    releaseCaseTrigger (no) {
+      this.releaseCaseNo = no
+      console.log(no)
     }
   },
   mounted () {

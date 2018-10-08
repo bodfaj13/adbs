@@ -4,11 +4,19 @@
     <div class="content-wrapper">
       <div class="container-fluid">
 
-        <!-- <div class="alert alert-success animated slideInDown" >
-          <strong>Update Successful</strong> 
+        <div class="alert alert-success animated slideInDown" v-if="mobiliseSuccess">
+          <strong>Case Mobilized Successfully</strong> 
           <br>
-          Here goes the shit
-        </div> -->
+          <p>Navigating back to <b>Record Call View</b></p>
+        </div>
+
+        <div class="alert alert-danger animated slideInDown" v-if="mobiliseError">
+          <strong>Something went wrong!</strong> 
+        </div>
+
+        <div class="alert alert-danger animated slideInDown" v-if="ambError">
+          <strong>{{ambError}}</strong>
+        </div>
 
         <div class="row">
           <div class="col-md-12">
@@ -24,6 +32,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <h6>Call ID: {{currentCase._id}}</h6>
+                    <input  v-model="currentCase._id" hidden>
                   </div>
                   <div class="col-md-6 text-right">
                     <button class="btn btn-primary" @click="toggleShow" ref="showDetailsBtn">Show Call Details</button>
@@ -33,7 +42,7 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="noNeeded">No of Needed Ambulance(s)</label>
-                  <input type="text" class="form-control" id="noNeeded" :value="AmbNeeded" disabled/>
+                  <input type="text" class="form-control" id="noNeeded" v-model="AmbNeeded" disabled/>
                 </div>
                 <div class="form-group">
                   <label for="noNeeded">No of Selected Ambulance(s)</label>
@@ -80,7 +89,12 @@
               <div class="card-footer text-muted">
                 <div class="row">
                   <div class="col-md-12">
-                    <button class="btn btn-primary" style="width: 100%">Moblise Case <i class="fa fa-plus"></i></button> 
+                    <button class="btn btn-primary" style="width: 100%" :class="{disabled: btnDisabled}" @click="mobiliseCase">
+                      <div class="loader" v-if="loaderSwitch"></div>
+                      <span v-else>Proceed To Case 
+                        <i class="fa fa-fw fa-long-arrow-right"></i>
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -127,7 +141,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="clickOnAmbLabel">Modal title</h5>
+              <h5 class="modal-title" id="clickOnAmbLabel">Ambulance Details</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -177,6 +191,7 @@ import DashboardNav from '../components/DashboardNav'
 import Footer from '../components/Footer'
 import { DataMixin } from '../mixins/DataMixin'
 import { LoaderMixin } from '../mixins/LoaderMixin'
+import Emergency from '../services/Emergency'
 
 export default {
   name: 'CreateCase',
@@ -189,7 +204,11 @@ export default {
     ambChosen: [],
     addMore: false,
     clickOnAmbShow: {},
-    noAmbChosen: 0
+    noAmbChosen: 0,
+    mobiliseSuccess: '',
+    mobiliseError: '',
+    error: '',
+    ambError: ''
   }),
   methods: {
     toggleShow (e) {
@@ -239,6 +258,42 @@ export default {
         //   this.ambChosen.push(this.$store.state.AvailAmb[i]._id)
         // }
         console.log('equal')
+      }
+    },
+    async mobiliseCase (e) {
+      e.preventDefault()
+      this.ambError = ''
+      this.mobiliseSuccess = ''
+      this.btnDisabled = true
+      this.loaderSwitch = true
+      var go = true
+      if (this.noAmbChosen === 0) {
+        this.ambError = 'No Ambulance was chosen!'
+        go = false
+      }
+      if (go) {
+        try {
+          const response = await Emergency.createCase({
+            emergencyId: this.currentCase._id,
+            ambulanceRequired: this.AmbNeeded,
+            ambulanceId: this.ambChosen
+          })
+          console.log(response)
+          this.timeOut()
+          this.mobiliseSuccess = response.data.success
+          this.getAvailableAmbulanceDetails()
+          setTimeout(() => {
+            this.$router.push({name: 'RecordCall'})
+          }, 3000)
+          this.$store.dispatch('keepCurrentCase', {})
+        } catch (error) {
+          this.error = error.response.data.error
+          this.mobiliseError = this.error
+          console.log(this.error)
+          this.timeOut()
+        }
+      } else {
+        this.timeOut()
       }
     }
   },

@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="content">
     <DashboardNav></DashboardNav>
     <div class="content-wrapper">
